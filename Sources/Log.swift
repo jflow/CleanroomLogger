@@ -89,6 +89,11 @@ public struct Log
      log severity level. Will be `nil` if logging hasn't yet been enabled, or
      if logging for the `.warning` severity has not been configured. */
     public private(set) static var warning: LogChannel?
+    
+    /** The `LogChannel` that can be used to perform logging at the `.Debug`
+     log severity level. Will be `nil` if the `Log` has not been enabled with
+     a minimum severity of `.User` or greater. */
+    public private(set) static var user: LogChannel?
 
     /** The `LogChannel` that can be used to perform logging at the `.info`
      log severity level. Will be `nil` if logging hasn't yet been enabled, or
@@ -189,6 +194,7 @@ public struct Log
         enable(
             errorChannel: createLogChannel(severity: .error, receptacle: receptacle),
             warningChannel: createLogChannel(severity: .warning, receptacle: receptacle),
+            userChannel: createLogChannel(severity: .user, receptacle: receptacle),
             infoChannel: createLogChannel(severity: .info, receptacle: receptacle),
             debugChannel: createLogChannel(severity: .debug, receptacle: receptacle),
             verboseChannel: createLogChannel(severity: .verbose, receptacle: receptacle)
@@ -220,12 +226,13 @@ public struct Log
      - parameter verboseChannel: The `LogChannel` to use for logging messages
      with a `severity` of `.verbose`.
      */
-    public static func enable(errorChannel: LogChannel?, warningChannel: LogChannel?, infoChannel: LogChannel?, debugChannel: LogChannel?, verboseChannel: LogChannel?)
+    public static func enable(errorChannel: LogChannel?, warningChannel: LogChannel?, userChannel: LogChannel?, infoChannel: LogChannel?, debugChannel: LogChannel?, verboseChannel: LogChannel?)
     {
         logLock.lock()
         if !didEnable {
             self.error = errorChannel
             self.warning = warningChannel
+            self.user = userChannel
             self.info = infoChannel
             self.debug = debugChannel
             self.verbose = verboseChannel
@@ -252,7 +259,7 @@ public struct Log
      */
     public static func neverEnable()
     {
-        enable(errorChannel: nil, warningChannel: nil, infoChannel: nil, debugChannel: nil, verboseChannel: nil)
+        enable(errorChannel: nil, warningChannel: nil, userChannel: nil, infoChannel: nil, debugChannel: nil, verboseChannel: nil)
     }
 
     /**
@@ -272,6 +279,7 @@ public struct Log
         case .verbose:  return verbose
         case .debug:    return debug
         case .info:     return info
+        case .user:     return user
         case .warning:  return warning
         case .error:    return error
         }

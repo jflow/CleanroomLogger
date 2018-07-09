@@ -29,14 +29,17 @@ public enum LogSeverity: Int
     /** Used to indicate something of interest that is not problematic. */
     case info       = 3
     
+    /** Used to indicate a user action. */
+    case user       = 4
+    
     /** Used to indicate that something appears amiss and potentially
      problematic. The situation bears looking into before a larger problem
      arises. */
-    case warning    = 4
+    case warning    = 5
     
     /** The highest severity, used to indicate that something has gone wrong;
      a fatal error may be imminent. */
-    case error      = 5
+    case error      = 6
 }
 
 extension LogSeverity: CustomStringConvertible
@@ -47,6 +50,7 @@ extension LogSeverity: CustomStringConvertible
         case .verbose:   return "Verbose"
         case .debug:     return "Debug"
         case .info:      return "Info"
+        case .user:      return "User"
         case .warning:   return "Warning"
         case .error:     return "Error"
         }

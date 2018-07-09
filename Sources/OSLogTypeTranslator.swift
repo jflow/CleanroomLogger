@@ -106,6 +106,7 @@ extension OSLogTypeTranslator
                 case .verbose:      return .debug
                 case .debug:        return .debug
                 case .info:         return .info
+                case .user:         return .info
                 case .warning:      return .default
                 case .error:        return .error
                 }
@@ -117,6 +118,7 @@ extension OSLogTypeTranslator
                 case .verbose:      return .debug
                 case .debug:        return .debug
                 case .info:         return .default
+                case .user:         return .default
                 case .warning:      return .error
                 case .error:        return .fault
                 }
@@ -128,6 +130,7 @@ extension OSLogTypeTranslator
                 case .verbose:      return .debug
                 case .debug:        return .debug
                 case .info:         return .info
+                case .user:         return .info
                 case .warning:      return .default
                 case .error:        return .default
                 }

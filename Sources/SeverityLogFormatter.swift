@@ -119,6 +119,7 @@ extension SeverityStyle.TextRepresentation
             case .verbose:  return "▫️"
             case .debug:    return "▪️"
             case .info:     return "🔷"
+            case .user:     return "👨🏻‍💻"
             case .warning:  return "🔶"
             case .error:    return "❌"
             }
